@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Submit to Google Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 40px;
+    }
+    h2 {
+      text-align: center;
+    }
+    form {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Custom Google Form</h2>
+  <form id="myForm">
+    <label>Field 1 (sk-1):
+      <input type="text" name="entry.1449005772" required />
+    </label>
+    <label>Field 2 (sk-2):
+      <input type="text" name="entry.1685270148" required />
+    </label>
+    <label>Option 3 - Select 1:
+      <select name="entry.1842912509" required>
+        <option value="">Choose...</option>
+        <option value="Option 1">Option 1</option>
+        <option value="Option 2">Option 2</option>
+        <option value="Option 3">Option 3</option>
+      </select>
+    </label>
+    <label>Option 3 - Select 2:
+      <select name="entry.1693510977" required>
+        <option value="">Choose...</option>
+        <option value="Option 1">Option 1</option>
+        <option value="Option 2">Option 2</option>
+        <option value="Option 3">Option 3</option>
+      </select>
+    </label>
+    <label>Field 5 (sk-5):
+      <input type="text" name="entry.262002855" required />
+    </label>
+    <label>Field 6 (sk-6):
+      <input type="text" name="entry.1369130152" required />
+    </label>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('myForm');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      fetch("https://docs.google.com/forms/d/e/1FAIpQLSep3oWQ_i-iZZcFUKiMlQCtjh7WQBxNbhfQTic3SLjmnXxGyw/formResponse", {
+        method: "POST",
+        mode: "no-cors",
+        body: formData
+      })
+      .then(() => {
+        alert("Form submitted successfully!");
+        form.reset();
+      })
+      .catch((error) => {
+        console.error("Submission failed", error);
+      });
+    });
+  </script>
+
+</body>
+</html>
